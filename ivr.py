@@ -536,3 +536,51 @@ with open("fullcode.text", "r", encoding="utf-8") as f:
 contents = [
     fullcode_as_string
 ]
+
+
+
+
+import os
+import fitz  # PyMuPDF
+from PIL import Image
+
+# Path to the PDF file
+pdf_path = '/path/to/your/pdf_file.pdf'
+
+# Output text file
+output_file = 'output_text_with_images.txt'
+
+# Directory to save extracted images
+images_dir = 'extracted_images'
+os.makedirs(images_dir, exist_ok=True)
+
+# Open the PDF file
+pdf_document = fitz.open(pdf_path)
+
+# Function to extract images and save them
+def save_image(image_index, image):
+    image_bytes = image["image"]
+    image_ext = image["ext"]
+    image_filename = f"image_{image_index}.{image_ext}"
+    image_filepath = os.path.join(images_dir, image_filename)
+    with open(image_filepath, 'wb') as image_file:
+        image_file.write(image_bytes)
+    return image_filepath
+
+# Process each page
+with open(output_file, 'w', encoding='utf-8') as txt_file:
+    image_counter = 1
+    for page_num in range(len(pdf_document)):
+        page = pdf_document.load_page(page_num)
+        blocks = page.get_text("dict")["blocks"]
+        for block in blocks:
+            if block["type"] == 0:  # Text block
+                txt_file.write(block["text"] + "\n")
+            elif block["type"] == 1:  # Image block
+                image = pdf_document.extract_image(block["image"])
+                image_path = save_image(image_counter, image)
+                txt_file.write(f"[Image {image_counter}: {image_path}]\n")
+                image_counter += 1
+
+print(f"Processing complete. Text and image references saved in '{output_file}'. Extracted images are in the '{images_dir}' directory.")
+
