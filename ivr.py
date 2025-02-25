@@ -502,4 +502,37 @@ return (
   </div>
 );
 
-AIzaSyChHoPdIjTsXP9TcX_puTg3gBKFCzhYaSY
+
+
+
+
+import os
+from PyPDF2 import PdfReader
+
+# Directory containing PDF files
+pdf_directory = '/path/to/your/pdf/folder'
+
+# Output text file
+output_file = 'combined_text.txt'
+
+with open(output_file, 'w', encoding='utf-8') as txt_file:
+    for filename in os.listdir(pdf_directory):
+        if filename.endswith('.pdf'):
+            pdf_path = os.path.join(pdf_directory, filename)
+            reader = PdfReader(pdf_path)
+            text = ''
+            for page in reader.pages:
+                text += page.extract_text() + '\n'
+            txt_file.write(f"## {filename}\n{text}\n")
+            print(f"Processed {filename}")
+
+print(f"All PDF files have been processed and combined into {output_file}")
+
+
+with open("fullcode.text", "r", encoding="utf-8") as f:
+     fullcode_as_string = f.read()
+
+
+contents = [
+    fullcode_as_string
+]
