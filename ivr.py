@@ -584,3 +584,7 @@ with open(output_file, 'w', encoding='utf-8') as txt_file:
 
 print(f"Processing complete. Text and image references saved in '{output_file}'. Extracted images are in the '{images_dir}' directory.")
 
+
+
+AIzaSyDboExKU3X3Uceg_d6pTDcXgTNdx02vDSY
+
