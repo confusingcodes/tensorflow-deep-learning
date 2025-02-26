@@ -586,5 +586,19 @@ print(f"Processing complete. Text and image references saved in '{output_file}'.
 
 
 
-AIzaSyDboExKU3X3Uceg_d6pTDcXgTNdx02vDSY
+cache = caching.CachedContent.create(
+    model='models/gemini-1.5-flash-001',
+    display_name='PDF-file', # used to identify the cache
+    system_instruction=(
+        'You are an expert text file analyzer, and your job is to answer '
+        'the user\'s query based on the text file you have access to.'
+    ),
+    contents=contents,
+    ttl=datetime.timedelta(minutes=15),
+)
+
+model = genai.GenerativeModel.from_cached_content(cached_content=cache)
+
+
+
 
