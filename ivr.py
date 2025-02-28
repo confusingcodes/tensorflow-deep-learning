@@ -600,5 +600,13 @@ cache = caching.CachedContent.create(
 model = genai.GenerativeModel.from_cached_content(cached_content=cache)
 
 
+Hey there! What can I do for you today?
 
+Oh no, I'm sorry to hear that you're having service issues.  To help me assist you, could you please provide me with your fiber connection DTN number?
+
+
+Okay, I've checked your account and it appears to be suspended due to an outstanding payment. Would you like to proceed with making a payment?
+
+
+Great! We'll send a payment link to your registered email address. Once the payment is complete, your services will be resumed. Thanks for calling!  If you have any further questions, please don't hesitate to call back.
 
